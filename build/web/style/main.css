@@ -1,0 +1,63 @@
+img.belk {
+    display: block;
+    margin: auto;
+}
+h1 {
+    text-align: center;
+}
+
+div.block {
+    border-style: solid;
+    border-color: red;
+    padding-left: 17px;
+    padding-top: 17px;
+    padding-bottom: 17px;
+}
+
+.block h4 {
+    margin: -5px;
+}
+.copy{
+  border-top: 2px solid blue;
+  float:left;
+  margin-top: 20px;
+  padding-top: 1em;
+  text-align:left;
+  width:100%;
+}
+
+html{
+  border: 5px solid black;
+  width:60%;
+  margin:auto;
+}
+
+.pad_top {
+    padding-top: 0.25em;
+}
+.margin_left {
+    margin-left: 0.5em;
+}
+
+input[type="text"], input[type="email"] {  
+    width: 15em;
+    margin-left: 0.5em;    
+    margin-bottom: 0.5em;
+}
+
+label {
+    float: left;
+    width: 7em;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+}
+
+br {
+    clear: both;
+}
+
+input.length {
+    width: 25em;
+    margin-left: 0.5em;    
+    margin-bottom: 0.5em;
+}
