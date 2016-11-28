@@ -14,17 +14,16 @@ import java.io.Serializable;
 public class Reference implements Serializable {
     
     private String email_address;
-    private String book_title;
 
     
     public Reference() {
         email_address = "";
-        book_title = "";
+
     }
     
-    public Reference(String emailAddress, String bookTitle) {
+    public Reference(String emailAddress) {
         this.email_address = emailAddress;
-        this.book_title = bookTitle;
+
     }
     
     public String getEmailAddress() {
@@ -34,13 +33,4 @@ public class Reference implements Serializable {
     public void setEmailAddress(String emailAddress) {
         this.email_address = emailAddress;
     }
-    
-    public String getBookTitle() {
-        return book_title;
-    }
-    
-    public void setBookTitle(String bookTitle) {
-        this.book_title = bookTitle;
-    }
-
 }

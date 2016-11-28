@@ -56,7 +56,7 @@ public class LibraryCheckoutServlet extends HttpServlet {
             UserDB.insert(user);
             Book book = new Book(bookTitle, dueDate, overdue);
             BookDB.insert(book);
-            Reference reference = new Reference(emailAddress, bookTitle);
+            Reference reference = new Reference(emailAddress);
             ReferenceDB.insert(reference);
             dueDate = dateFormat(dueDate);
             Book book2 = new Book(bookTitle, dueDate, overdue);
