@@ -16,17 +16,26 @@ public class User implements Serializable {
     private String first_name;
     private String last_name;
     private String email_address;
+    private String book_title;
+    private String due_date;
+    private String overdue;
     
     public User() {
         first_name = "";
         last_name = "";
         email_address = "";
+        book_title = "";
+        due_date = "";
+        overdue = "";
     }
     
-    public User(String firstName, String lastName, String emailAddress) {
+    public User(String firstName, String lastName, String emailAddress,String bookTitle, String dueDate, String overdue) {
         this.first_name = firstName;
         this.last_name = lastName;
         this.email_address = emailAddress;
+        this.book_title = bookTitle;
+        this.due_date = dueDate;
+        this.overdue = overdue;
     }
     
     public String getFirstName() {
@@ -51,5 +60,29 @@ public class User implements Serializable {
     
     public void setEmailAddress(String emailAddress) {
         this.email_address = emailAddress;
+    }
+    
+    public String getBookTitle() {
+        return book_title;
+    }
+    
+    public void setBookTitle(String bookTitle) {
+        this.book_title = bookTitle;
+    }
+    
+    public String getDueDate() {
+        return due_date;
+    }
+    
+    public void setDueDate(String dueDate) {
+        this.due_date = dueDate;
+    }
+    
+    public String getOverdue() {
+        return overdue;
+    }
+    
+    public void setOverdue(String overdue) {
+        this.overdue = overdue;
     }
 }

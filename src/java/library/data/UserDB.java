@@ -13,38 +13,16 @@ public class UserDB {
         PreparedStatement ps = null;
 
         String query
-                = "INSERT INTO patron (email_address, first_name, last_name) "
-                + "VALUES (?, ?, ?)";
+                = "INSERT INTO patron (first_name, last_name, email_address, book_title, due_date, overdue) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, user.getEmailAddress());
             ps.setString(2, user.getFirstName());
             ps.setString(3, user.getLastName());
-            return ps.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e);
-            return 0;
-        } finally {
-            DBUtil.closePreparedStatement(ps);
-            pool.freeConnection(connection);
-        }
-    }
-
-    public static int update(User user) {
-        ConnectionPool pool = ConnectionPool.getInstance();
-        Connection connection = pool.getConnection();
-        PreparedStatement ps = null;
-
-        String query = "UPDATE patron SET "
-                + "first_name = ?, "
-                + "last_name = ? "
-                + "WHERE email_address = ?";
-        try {
-            ps = connection.prepareStatement(query);
-            ps.setString(1, user.getFirstName());
-            ps.setString(2, user.getLastName());
-            ps.setString(3, user.getEmailAddress());
-
+            ps.setString(4, user.getBookTitle());
+            ps.setString(5, user.getDueDate());
+            ps.setString(6, user.getOverdue());
             return ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -61,10 +39,11 @@ public class UserDB {
         PreparedStatement ps = null;
 
         String query = "DELETE FROM patron "
-                + "WHERE email_address = ?";
+                + "WHERE email_address = ? AND book_title = ?";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, user.getEmailAddress());
+            ps.setString(2, user.getBookTitle());
 
             return ps.executeUpdate();
         } catch (SQLException e) {
@@ -76,17 +55,18 @@ public class UserDB {
         }
     }
 
-    public static boolean emailExists(String email) {
+    public static boolean emailExists(String email, String bookTitle) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT Email FROM patron "
-                + "WHERE email_address = ?";
+        String query = "SELECT email_address FROM patron "
+                + "WHERE email_address = ? AND book_title = ?";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, email);
+            ps.setString(2, bookTitle);
             rs = ps.executeQuery();
             return rs.next();
         } catch (SQLException e) {
@@ -99,24 +79,33 @@ public class UserDB {
         }
     }
 
-    public static User selectUser(String email) {
+    public static User selectUser(String email, String bookTitle) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT * FROM patron "
-                + "WHERE email_address = ?";
+        String query = "SELECT concat(first_name, \" \", last_name) AS 'Patron Name', email_address, book_title, due_date AS 'Due Date',\n" +
+"    CASE\n" +
+"    WHEN DATE(now()) > DATE(due_date)\n" +
+"		THEN 'Overdue'\n" +
+"	Else overdue\n" +
+"    END AS 'Overdue' FROM patron "
+                + "WHERE email_address = ? AND book_title = ?";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, email);
+            ps.setString(2, bookTitle);
             rs = ps.executeQuery();
             User user = null;
             if (rs.next()) {
                 user = new User();
-                user.setFirstName(rs.getString("first_name"));
-                user.setLastName(rs.getString("last_name"));
+                user.setFirstName(rs.getString("Patron Name"));
                 user.setEmailAddress(rs.getString("email_address"));
+                user.setBookTitle(rs.getString("book_title"));
+                user.setDueDate(rs.getString("due_date"));
+                user.setOverdue(rs.getString("Overdue"));
+                
             }
             return user;
         } catch (SQLException e) {
@@ -135,7 +124,12 @@ public class UserDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT * FROM patron ";
+        String query = "SELECT concat(first_name, \" \", last_name) AS 'Patron Name', email_address, book_title, due_date AS 'Due Date',\n" +
+"    CASE\n" +
+"    WHEN DATE(now()) > DATE(due_date)\n" +
+"		THEN 'Overdue'\n" +
+"	Else overdue\n" +
+"    END AS 'Overdue' FROM Homework4.patron ";
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
@@ -143,9 +137,11 @@ public class UserDB {
             while (rs.next())
             {
                 User user = new User();
-                user.setFirstName(rs.getString("first_name"));
-                user.setLastName(rs.getString("last_name"));
+                user.setFirstName(rs.getString("Patron Name"));
                 user.setEmailAddress(rs.getString("email_address"));
+                user.setBookTitle(rs.getString("book_title"));
+                user.setDueDate(rs.getString("due_date"));
+                user.setOverdue(rs.getString("Overdue"));
                 users.add(user);
             }
             return users;

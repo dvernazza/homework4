@@ -31,16 +31,18 @@
   <c:forEach var="user" items="${users}">
   <tr>
     <td>${user.firstName}</td>
-    <td>${user.lastName}</td>
     <td>${user.emailAddress}</td>
-    <td><a href="libraryCheckout?action=display_user&amp;email=${user.emailAddress}">Update</a></td>
-    <td><a href="libraryCheckout?action=delete_user&amp;email=${user.emailAddress}">Delete</a></td>
+    <td>${user.bookTitle}</td>
+    <td>${user.dueDate}</td>
+    <td>${user.overdue}</td>
+    <td><a href="libraryCheckout?action=delete_user&amp;email=${user.emailAddress}, bookTitle=${user.bookTtile}">Check in</a></td>
   </tr>
   </c:forEach>
 
 </table>
 
 <p><a href="libraryCheckout">Refresh</a></p>
+<p><a href="index.jsp">Return to Front Page</p></a>
  </div>
         <footer>
     <%@ include file="/includes/footer.jsp" %>       

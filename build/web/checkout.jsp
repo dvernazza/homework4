@@ -20,6 +20,7 @@
         <h1>Belk Library</h1>
         <div class="block">
             <h2>Check out a book</h2>
+            <p><i>${message}</i></p>
             <form action="libraryCheckout" method="post" >  
                 <input type="hidden" name="action" value="add">
                 <label class="pad_top">First name:</label>

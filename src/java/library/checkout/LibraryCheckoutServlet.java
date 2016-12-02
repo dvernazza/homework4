@@ -18,12 +18,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import library.business.Book;
 import library.business.User;
-import library.business.Reference;
 import library.data.UserDB;
-import library.data.BookDB;
-import library.data.ReferenceDB;
 
 
 /**
@@ -45,18 +41,18 @@ public class LibraryCheckoutServlet extends HttpServlet {
         if (action.equals("display_users")) {            
             // get list of users
             ArrayList<User> users = UserDB.selectUsers();            
-            request.setAttribute("users", users);
-        } 
-        else if (action.equals("display_user")) {
+            session.setAttribute("users", users);
             String emailAddress = request.getParameter("email");
-            User user = UserDB.selectUser(emailAddress);
+            String bookTitle = request.getParameter("bookTitle");
+            User user = UserDB.selectUser(emailAddress, bookTitle);
             session.setAttribute("user", user);
-            url = "/user.jsp";
+            url = "/manager.jsp";
         }
         else if (action.equals("delete_user")) {
             // get the user
-            String email = request.getParameter("email");
-            User user = UserDB.selectUser(email);
+            String emailAddress = request.getParameter("email");
+            String bookTitle = request.getParameter("bookTitle");
+            User user = UserDB.selectUser(emailAddress, bookTitle);
             
             // delte the user
             UserDB.delete(user);
@@ -76,17 +72,23 @@ public class LibraryCheckoutServlet extends HttpServlet {
             LocalDate currentDate = LocalDate.now();
             String dueDate = dateDue(currentDate);
             String overdue = "";
-            User user = new User(firstName, lastName, emailAddress);
-            UserDB.insert(user);
-            Book book = new Book(bookTitle, dueDate, overdue);
-            BookDB.insert(book);
-            Reference reference = new Reference(emailAddress);
-            ReferenceDB.insert(reference);
+            User user = new User(firstName, lastName, emailAddress, bookTitle, dueDate, overdue);
+            String message;
+            if (UserDB.emailExists(user.getEmailAddress(),user.getBookTitle())) {
+                message = "You currently have checked out this book.<br>" +
+                          "Please return it before you can check it out again.";
+                url = "/checkout.jsp";
+            }
+            else {
+                message = "";
+                url = "/thanks.jsp";
+                UserDB.insert(user);
+            }
             dueDate = dateFormat(dueDate);
-            Book book2 = new Book(bookTitle, dueDate, overdue);
+            User user2 = new User(firstName, lastName, emailAddress, bookTitle, dueDate, overdue);
+            session.setAttribute("message", message);
             session.setAttribute("user", user);
-            session.setAttribute("book", book2);
-            session.setAttribute("reference", reference);
+            session.setAttribute("user2", user2);
             url = "/thanks.jsp";
             
         }

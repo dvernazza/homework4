@@ -20,8 +20,8 @@
         </header>
         <h1>Belk Library</h1>
         <div class="block">
-            <p>Thank you for your patronage of the Belk Library. You've successfully checked out the book, ${book.bookTitle}. 
-                Please note that this book is due back on ${book.dueDate}. 
+            <p>Thank you for your patronage of the Belk Library. You've successfully checked out the book, ${user.bookTitle}. 
+                Please note that this book is due back on ${user2.dueDate}. 
                 A friendly reminder email will be sent to you if your book becomes overdue</p>
         </div>
         <footer>
