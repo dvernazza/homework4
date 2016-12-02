@@ -20,7 +20,7 @@
         <h1>Belk Library</h1>
         <div class="block">
             <h4><a href="checkout.jsp">Check out a book</h4></a>
-            <h4>Manage checked out books</h4>
+            <h4><a href="manager.jsp">Manage checked out books</h4>
         </div>
         <footer>
     <%@ include file="/includes/footer.jsp" %>       

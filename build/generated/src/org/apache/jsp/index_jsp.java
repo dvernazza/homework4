@@ -64,7 +64,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <h1>Belk Library</h1>\n");
       out.write("        <div class=\"block\">\n");
       out.write("            <h4><a href=\"checkout.jsp\">Check out a book</h4></a>\n");
-      out.write("            <h4>Manage checked out books</h4>\n");
+      out.write("            <h4><a href=\"manager.jsp\">Manage checked out books</h4>\n");
       out.write("        </div>\n");
       out.write("        <footer>\n");
       out.write("    ");
