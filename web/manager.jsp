@@ -22,9 +22,11 @@
 <table>
 
   <tr>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th colspan="3">Email</th>
+    <th>Patron Name</th>
+    <th>Email Address</th>
+    <th>Book Title</th>
+    <th>Due Date</th>
+    <th>Overdue</th>
   </tr>
 
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -35,14 +37,13 @@
     <td>${user.bookTitle}</td>
     <td>${user.dueDate}</td>
     <td>${user.overdue}</td>
-    <td><a href="libraryCheckout?action=delete_user&amp;email=${user.emailAddress}, bookTitle=${user.bookTtile}">Check in</a></td>
+    <td><a href="library?action=delete_user&amp;email=${user.emailAddress}&amp;bookTitle=${user.bookTitle}">Check in</a></td>
   </tr>
   </c:forEach>
 
 </table>
 
-<p><a href="libraryCheckout">Refresh</a></p>
-<p><a href="index.jsp">Return to Front Page</p></a>
+<p><a href="library?action=return">Return to Front Page</p></a>
  </div>
         <footer>
     <%@ include file="/includes/footer.jsp" %>       

@@ -17,9 +17,9 @@ public class UserDB {
                 + "VALUES (?, ?, ?, ?, ?, ?)";
         try {
             ps = connection.prepareStatement(query);
-            ps.setString(1, user.getEmailAddress());
-            ps.setString(2, user.getFirstName());
-            ps.setString(3, user.getLastName());
+            ps.setString(1, user.getFirstName());
+            ps.setString(2, user.getLastName());
+            ps.setString(3, user.getEmailAddress());
             ps.setString(4, user.getBookTitle());
             ps.setString(5, user.getDueDate());
             ps.setString(6, user.getOverdue());
@@ -38,8 +38,8 @@ public class UserDB {
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
 
-        String query = "DELETE FROM patron "
-                + "WHERE email_address = ? AND book_title = ?";
+        String query = "DELETE FROM Homework4.patron "
+                + "WHERE email_address LIKE ? AND book_title LIKE ?";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, user.getEmailAddress());
@@ -61,8 +61,8 @@ public class UserDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT email_address FROM patron "
-                + "WHERE email_address = ? AND book_title = ?";
+        String query = "SELECT email_address FROM Homework4.patron "
+                + "WHERE email_address LIKE ? AND book_title LIKE ?";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, email);
@@ -85,13 +85,8 @@ public class UserDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT concat(first_name, \" \", last_name) AS 'Patron Name', email_address, book_title, due_date AS 'Due Date',\n" +
-"    CASE\n" +
-"    WHEN DATE(now()) > DATE(due_date)\n" +
-"		THEN 'Overdue'\n" +
-"	Else overdue\n" +
-"    END AS 'Overdue' FROM patron "
-                + "WHERE email_address = ? AND book_title = ?";
+        String query = "SELECT * FROM Homework4.patron "
+                + "WHERE email_address LIKE ? AND book_title LIKE ?";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, email);
@@ -100,11 +95,13 @@ public class UserDB {
             User user = null;
             if (rs.next()) {
                 user = new User();
-                user.setFirstName(rs.getString("Patron Name"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName("last_name");
                 user.setEmailAddress(rs.getString("email_address"));
                 user.setBookTitle(rs.getString("book_title"));
                 user.setDueDate(rs.getString("due_date"));
-                user.setOverdue(rs.getString("Overdue"));
+                user.setOverdue(rs.getString("overdue"));
+                user.setDateDue(rs.getString("due_date"));
                 
             }
             return user;
@@ -124,12 +121,11 @@ public class UserDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT concat(first_name, \" \", last_name) AS 'Patron Name', email_address, book_title, due_date AS 'Due Date',\n" +
-"    CASE\n" +
-"    WHEN DATE(now()) > DATE(due_date)\n" +
+        String query = "SELECT first_name, last_name, email_address, book_title, due_date, CASE \n" +
+"   WHEN DATE(now()) > DATE(due_date)\n" +
 "		THEN 'Overdue'\n" +
 "	Else overdue\n" +
-"    END AS 'Overdue' FROM Homework4.patron ";
+"    END AS 'Overdue' FROM Homework4.patron ;";
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
@@ -137,11 +133,13 @@ public class UserDB {
             while (rs.next())
             {
                 User user = new User();
-                user.setFirstName(rs.getString("Patron Name"));
+                String name = rs.getString("first_name") + " " + rs.getString("last_name");
+                user.setFirstName(name);
                 user.setEmailAddress(rs.getString("email_address"));
                 user.setBookTitle(rs.getString("book_title"));
                 user.setDueDate(rs.getString("due_date"));
-                user.setOverdue(rs.getString("Overdue"));
+                user.setOverdue(rs.getString("overdue"));
+                user.setDateDue(rs.getString("due_date"));
                 users.add(user);
             }
             return users;

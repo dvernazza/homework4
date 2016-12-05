@@ -5,12 +5,8 @@
  */
 package library.checkout;
 
-import java.time.temporal.ChronoUnit;
-import java.lang.Object;
-import java.util.Date;
 import java.time.LocalDate;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +22,7 @@ import library.data.UserDB;
  *
  * @author dvernazza
  */
-@WebServlet(name = "LibraryCheckoutServlet", urlPatterns = {"/libraryCheckout"})
+@WebServlet(name = "LibraryCheckoutServlet", urlPatterns = {"/library"})
 public class LibraryCheckoutServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -38,6 +34,15 @@ public class LibraryCheckoutServlet extends HttpServlet {
         if (action == null) {
             action = "display_users";
         } 
+        if (action.equals("checkoutBook")) {
+            action = "display_users";
+        }
+        else if (action.equals("check")) {
+            url = "/checkout.jsp";
+        }
+        else if (action.equals("return")) {
+            url = "/index.jsp";
+        }
         if (action.equals("display_users")) {            
             // get list of users
             ArrayList<User> users = UserDB.selectUsers();            
@@ -64,32 +69,35 @@ public class LibraryCheckoutServlet extends HttpServlet {
         
         if (action.equals("join")) {
             url = "/checkout.jsp";
-        } else if (action.equals("add")) {
+        }  
+        if (action.equals("add")) {
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
             String emailAddress = request.getParameter("emailAddress");
             String bookTitle = request.getParameter("bookTitle");
-            LocalDate currentDate = LocalDate.now();
-            String dueDate = dateDue(currentDate);
+            LocalDate dueDate = LocalDate.now();
             String overdue = "";
-            User user = new User(firstName, lastName, emailAddress, bookTitle, dueDate, overdue);
-            String message;
-            if (UserDB.emailExists(user.getEmailAddress(),user.getBookTitle())) {
+            User user = new User();
+            user.setBookTitle(bookTitle);
+            user.setFirstName(firstName);
+            user.setDueDate(dueDate);
+            user.setLastName(lastName);
+            user.setOverdue(overdue);
+            user.setEmailAddress(emailAddress);
+            user.setDateDue(dueDate.toString());
+            String message = "";
+            if (UserDB.emailExists((user.getEmailAddress()), (user.getBookTitle()))) {
                 message = "You currently have checked out this book.<br>" +
                           "Please return it before you can check it out again.";
                 url = "/checkout.jsp";
             }
             else {
-                message = "";
+                
                 url = "/thanks.jsp";
                 UserDB.insert(user);
             }
-            dueDate = dateFormat(dueDate);
-            User user2 = new User(firstName, lastName, emailAddress, bookTitle, dueDate, overdue);
             session.setAttribute("message", message);
             session.setAttribute("user", user);
-            session.setAttribute("user2", user2);
-            url = "/thanks.jsp";
             
         }
         
@@ -105,19 +113,6 @@ public class LibraryCheckoutServlet extends HttpServlet {
         doPost(request, response);
     }
     
- 
-    private String dateDue(LocalDate currentDate) {
-        LocalDate dateDue = currentDate.plus(2, ChronoUnit.WEEKS);
-        String dueDate = dateDue.toString();
-        return dueDate;
-    }
-    
-    private String dateFormat(String date) {
-        int first = date.indexOf("-");
-        int second = date.indexOf("-", first+1);
-        String newDate = date.substring(first+1, second+1) + date.substring(second+1) + "-" + date.substring(0, first);
-        return newDate;
-    }
     
     
 }

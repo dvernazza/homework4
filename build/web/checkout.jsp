@@ -20,17 +20,17 @@
         <h1>Belk Library</h1>
         <div class="block">
             <h2>Check out a book</h2>
-            <p><i>${message}</i></p>
-            <form action="libraryCheckout" method="post" >  
+            <p><i>${session.message}</i></p>
+            <form action="library" method="post" >  
                 <input type="hidden" name="action" value="add">
                 <label class="pad_top">First name:</label>
-                <input name="firstName" type="text" id="firstname" required ><br>
+                <input name="firstName" type="text" id="firstname" value="${session.firstName}" required ><br>
                 <label class="pad_top">Last name:</label>
-                <input name="lastName" type="text" id="lastname" required ><br>
+                <input name="lastName" type="text" id="lastname" value="${session.lastName}" required ><br>
                 <label class="pad_top">Email:</label>
-                <input name="emailAddress" type="email" class="text" id="email" required><br>
+                <input name="emailAddress" type="email" class="text" id="email" value="${session.emailAddress}" required><br>
                 <label class="pad_top" id="length">Book Title:</label>
-                <input class="length" name="bookTitle" type="text" id="title" required><br>
+                <input class="length" name="bookTitle" type="text" id="title" value="${session.bookTitle}" required><br>
               <input type="submit" value="Checkout" class="margin_left">
             </form>
         </div>
