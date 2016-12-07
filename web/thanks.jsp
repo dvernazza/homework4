@@ -24,7 +24,7 @@
                 Please note that this book is due back on ${user.dateDue}. 
                 A friendly reminder email will be sent to you if your book becomes overdue.</p>
             
-            <p><a href="library?action=return">Return to Front Page</p></a>
+            <p><a href="library?action=return">Return to Front Page</a></p>
         </div>
         <footer>
             <%@ include file="/includes/footer.jsp" %>

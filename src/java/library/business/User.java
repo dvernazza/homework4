@@ -5,9 +5,9 @@
  */
 package library.business;
 
+import org.joda.time.LocalDate;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+
 /**
  *
  * @author dvernazza and tyoung
@@ -84,7 +84,7 @@ public class User implements Serializable {
     }
     
     public void setDueDate(LocalDate currentDate) {
-        LocalDate dateDue = currentDate.plus(2, ChronoUnit.WEEKS);
+        LocalDate dateDue = currentDate.plusWeeks(2);
         String dueDate = dateDue.toString();
         this.due_date = dueDate;
     }

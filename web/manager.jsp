@@ -44,7 +44,7 @@
 
 </table>
 
-<p><a href="library?action=return">Return to Front Page</p></a>
+  <p><a href="library?action=return">Return to Front Page</a></p>
  </div>
         <footer>
     <%@ include file="/includes/footer.jsp" %>       

@@ -1,7 +1,7 @@
 # Copyright 2016 Dominic Vernazza and Tyler Young
-DROP DATABASE IF EXISTS Homework4;
-CREATE DATABASE IF NOT EXISTS Homework4;
-CREATE TABLE IF NOT EXISTS Homework4.patron
+DROP DATABASE IF EXISTS winona;
+CREATE DATABASE IF NOT EXISTS winona;
+CREATE TABLE IF NOT EXISTS winona.patron
 (
 first_name VARCHAR(25) NOT NULL,
 last_name VARCHAR(25) NOT NULL,

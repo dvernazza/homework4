@@ -38,7 +38,7 @@ public class UserDB {
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
 
-        String query = "DELETE FROM Homework4.patron "
+        String query = "DELETE FROM winona.patron "
                 + "WHERE email_address LIKE ? AND book_title LIKE ?";
         try {
             ps = connection.prepareStatement(query);
@@ -61,7 +61,7 @@ public class UserDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT email_address FROM Homework4.patron "
+        String query = "SELECT email_address FROM winona.patron "
                 + "WHERE email_address LIKE ? AND book_title LIKE ?";
         try {
             ps = connection.prepareStatement(query);
@@ -85,7 +85,7 @@ public class UserDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT * FROM Homework4.patron "
+        String query = "SELECT * FROM winona.patron "
                 + "WHERE email_address LIKE ? AND book_title LIKE ?";
         try {
             ps = connection.prepareStatement(query);
@@ -125,7 +125,7 @@ public class UserDB {
 "   WHEN DATE(now()) > DATE(due_date)\n" +
 "		THEN 'Overdue'\n" +
 "	Else overdue\n" +
-"    END AS 'Overdue' FROM Homework4.patron ;";
+"    END AS 'Overdue' FROM winona.patron ;";
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
