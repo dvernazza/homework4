@@ -11,8 +11,7 @@ public class ConnectionPool {
   private static ConnectionPool pool = null;
   private static DataSource dataSource = null;
 
-    //Need to make sure that we are consistent and using the database
-  // resouurce name used by openshift of jdbc/MySQLDA
+
   private ConnectionPool() {
     try {
       InitialContext ic = new InitialContext();

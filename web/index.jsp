@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : Nov 27, 2016, 2:54:42 PM
-    Author     : dvernazza
+    Author     : dvernazza and tyoung
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,11 +16,11 @@
     <body>
         <header>
             <img src="./images/belk-02.jpg" alt="Belk Library" class="belk">
+            <h1>Belk Library</h1>
         </header>
-        <h1>Belk Library</h1>
         <div class="block">
             <h4><a href="library?action=check">Check out a book</h4></a>
-            <h4><a href="library?action=checkoutBook">Manage checked out books</h4>
+            <h4><a href="library?action=checkoutBook">Manage checked out books</h4></a>
         </div>
         <footer>
     <%@ include file="/includes/footer.jsp" %>       

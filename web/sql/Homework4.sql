@@ -1,3 +1,4 @@
+# Copyright 2016 Dominic Vernazza and Tyler Young
 DROP DATABASE IF EXISTS Homework4;
 CREATE DATABASE IF NOT EXISTS Homework4;
 CREATE TABLE IF NOT EXISTS Homework4.patron

@@ -20,7 +20,7 @@ import library.data.UserDB;
 
 /**
  *
- * @author dvernazza
+ * @author dvernazza and tyoung
  */
 @WebServlet(name = "LibraryCheckoutServlet", urlPatterns = {"/library"})
 public class LibraryCheckoutServlet extends HttpServlet {
@@ -31,6 +31,8 @@ public class LibraryCheckoutServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String url = "/manager.jsp";
         String action = request.getParameter("action");
+        String message;
+        
         if (action == null) {
             action = "display_users";
         } 
@@ -39,12 +41,12 @@ public class LibraryCheckoutServlet extends HttpServlet {
         }
         else if (action.equals("check")) {
             url = "/checkout.jsp";
+            message = "";
         }
         else if (action.equals("return")) {
             url = "/index.jsp";
         }
         if (action.equals("display_users")) {            
-            // get list of users
             ArrayList<User> users = UserDB.selectUsers();            
             session.setAttribute("users", users);
             String emailAddress = request.getParameter("email");
@@ -54,15 +56,12 @@ public class LibraryCheckoutServlet extends HttpServlet {
             url = "/manager.jsp";
         }
         else if (action.equals("delete_user")) {
-            // get the user
             String emailAddress = request.getParameter("email");
             String bookTitle = request.getParameter("bookTitle");
             User user = UserDB.selectUser(emailAddress, bookTitle);
-            
-            // delte the user
+
             UserDB.delete(user);
-            
-            // get and set updated users
+
             ArrayList<User> users = UserDB.selectUsers();            
             request.setAttribute("users", users);            
         }
@@ -84,15 +83,14 @@ public class LibraryCheckoutServlet extends HttpServlet {
             user.setLastName(lastName);
             user.setOverdue(overdue);
             user.setEmailAddress(emailAddress);
-            user.setDateDue(dueDate.toString());
-            String message = "";
+            user.setDateDue(user.getDueDate());
             if (UserDB.emailExists((user.getEmailAddress()), (user.getBookTitle()))) {
-                message = "You currently have checked out this book.<br>" +
+                message = "You currently have checked out this book.<br>" + 
                           "Please return it before you can check it out again.";
                 url = "/checkout.jsp";
             }
             else {
-                
+                message = "";
                 url = "/thanks.jsp";
                 UserDB.insert(user);
             }

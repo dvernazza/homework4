@@ -5,7 +5,10 @@
         <group>
             <file>file:/Users/dvernazza/Desktop/homework4/src/java/library/checkout/LibraryCheckoutServlet.java</file>
             <file>file:/Users/dvernazza/Desktop/homework4/web/manager.jsp</file>
+            <file>file:/Users/dvernazza/Desktop/homework4/src/java/library/data/ConnectionPool.java</file>
             <file>file:/Users/dvernazza/Desktop/homework4/src/java/library/data/UserDB.java</file>
+            <file>file:/Users/dvernazza/Desktop/homework4/web/META-INF/context.xml</file>
+            <file>file:/Users/dvernazza/Desktop/homework4/web/sql/Homework4.sql</file>
         </group>
     </open-files>
 </project-private>

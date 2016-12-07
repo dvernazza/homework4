@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 /**
  *
- * @author dvernazza
+ * @author dvernazza and tyoung
  */
 
 public class User implements Serializable {

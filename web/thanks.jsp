@@ -1,7 +1,7 @@
 <%-- 
     Document   : thanks
     Created on : Nov 27, 2016, 2:54:42 PM
-    Author     : dvernazza
+    Author     : dvernazza and tyoung
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -17,12 +17,12 @@
     <body>
         <header>
             <img src="./images/belk-02.jpg" alt="Belk Library" class="belk">
+            <h1>Belk Library</h1>
         </header>
-        <h1>Belk Library</h1>
         <div class="block">
             <p>Thank you for your patronage of the Belk Library. You've successfully checked out the book, ${user.bookTitle}. 
                 Please note that this book is due back on ${user.dateDue}. 
-                A friendly reminder email will be sent to you if your book becomes overdue</p>
+                A friendly reminder email will be sent to you if your book becomes overdue.</p>
             
             <p><a href="library?action=return">Return to Front Page</p></a>
         </div>

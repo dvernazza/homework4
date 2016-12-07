@@ -1,22 +1,23 @@
 img.belk {
-    display: block;
-    margin: auto;
+  display: block;
+  margin: auto;
 }
 h1 {
-    text-align: center;
+  text-align: center;
 }
 
 div.block {
-    border-style: solid;
-    border-color: red;
-    padding-left: 17px;
-    padding-top: 17px;
-    padding-bottom: 17px;
+  border-color: red;
+  border-style: solid;
+  padding-bottom: 17px;
+  padding-left: 17px;
+  padding-top: 17px;
 }
 
 .block h4 {
-    margin: -5px;
+  margin: -1px;
 }
+
 .copy{
   border-top: 2px solid blue;
   float:left;
@@ -28,36 +29,50 @@ div.block {
 
 html{
   border: 5px solid black;
-  width:60%;
   margin:auto;
+  width:60%;
 }
 
 .pad_top {
-    padding-top: 0.25em;
-}
-.margin_left {
-    margin-left: 0.5em;
+  padding-top: 0.25em;
 }
 
-input[type="text"], input[type="email"] {  
-    width: 15em;
-    margin-left: 0.5em;    
-    margin-bottom: 0.5em;
+.margin_left {
+  margin-left: 0.5em;
+}
+
+input[type="text"], input[type="email"] {     
+  margin-bottom: 0.5em;
+  margin-left: 0.5em;
+  width: 15em; 
 }
 
 label {
-    float: left;
-    width: 7em;
-    margin-bottom: 0.5em;
-    font-weight: bold;
+  float: left;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  width: 7em;
 }
 
 br {
-    clear: both;
+  clear: both;
 }
 
 input.length {
-    width: 25em;
-    margin-left: 0.5em;    
-    margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: 0.5em;  
+  width: 25em;  
+}
+
+table {
+  margin-left:auto; 
+  margin-right:auto;
+}
+
+th, td {
+    width: 120px;
+}
+
+th {
+    text-align: left;
 }
